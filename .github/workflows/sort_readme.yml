@@ -1,33 +1,37 @@
-name: GH Pages
-on: [push]
+# Automatically sorts the README file alphabetically when README.md is modified
+name: sort-readme
+
+on:
+  push:
+    paths:
+      - 'README.md'
+
 jobs:
-  build-and-deploy:
+  sort:
     runs-on: ubuntu-latest
+
+    # avoid running this action on a loop
+    if: "!contains(github.event.head_commit.message, '[automated] sort README')"
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
         with:
-          persist-credentials: false
-      - uses: actions/setup-python@v1
-        with:
-          python-version: '3.8'
-      - name: Install Python dependencies
+          python-version: "3.x"
+
+      - name: sort readme
+        run: python sort.py
+
+      - name: Commit files
         run: |
-          pip install -r requirements.txt
-      - name: sort readme # run the run.py to get the latest data
-        run: |
-          python sort.py
-          
-       - name: Commit files
-         run: |
-           git config --local user.email "github@uu.nl"
-           git config --local user.name "GitHub Utrecht University"
-           git add .
-           git commit -m "sort README"
+          git config --local user.email "github@uu.nl"
+          git config --local user.name "GitHub Utrecht University"
+          git add .
+          git commit -m "[automated] sort README"
         continue-on-error: true
+
       - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        run: git push
         continue-on-error: true
-          
