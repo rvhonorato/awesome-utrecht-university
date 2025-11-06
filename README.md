@@ -136,6 +136,7 @@ This awesome list was created by efforts of the [FAIR Data and Software team](ht
 
 - [Jelle Treep](mailto:h.j.treep@uu.nl?subject=[GitHub]%20Awesome-UU)
 - [Jonathan de Bruin](mailto:j.debruin1@uu.nl?subject=[GitHub]%20Awesome-UU)
+- [Rodrigo Vargas Honorato](https://github.com/rvhonorato)
 - [Keven Quach](https://github.com/kequach) (Outside maintainer)
 
  or open an issue on GitHub.
